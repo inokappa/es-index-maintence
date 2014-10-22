@@ -7,7 +7,7 @@ require 'date'
 def config
   {
     :host => "127.0.0.1",
-    :date => 7
+    :date => 7,
     :prefix => "logstash"
   }
 end
@@ -24,9 +24,9 @@ def request_uri
 end
 
 def get_respons(request)
-  Net::HTTP.start(request_uri.host, request_uri.port) {|http|
+  Net::HTTP.start(request_uri.host, request_uri.port) do |http|
     http.request(request)
-  }
+  end
 end
 
 def check_delete_index
@@ -34,7 +34,7 @@ def check_delete_index
   get_respons request
 end
 
-def delete_index
+def index_delete
   request = Net::HTTP::Delete.new(request_uri.path)
   get_respons request
 end
@@ -43,5 +43,5 @@ if check_delete_index.code != "200"
   puts "#{config[:prefix]}-#{delete_index_date} is not subject to maintence."
 else
   puts "#{config[:prefix]}-#{delete_index_date} is subject to maintence."
-  delete_index
+  index_delete
 end
