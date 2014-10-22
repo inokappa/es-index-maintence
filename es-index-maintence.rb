@@ -40,8 +40,8 @@ def delete_index
 end
 
 if check_delete_index.code != "200"
-  puts "logstash-#{delete_index_date} is not subject to maintence."
+  puts "#{config[:prefix]}-#{delete_index_date} is not subject to maintence."
 else
-  puts "logstash-#{delete_index_date} is subject to maintence."
+  puts "#{config[:prefix]}-#{delete_index_date} is subject to maintence."
   delete_index
 end
