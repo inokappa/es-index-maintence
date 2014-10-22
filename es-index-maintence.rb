@@ -8,6 +8,7 @@ def config
   {
     :host => "127.0.0.1",
     :date => 7
+    :prefix => "logstash"
   }
 end
 
@@ -18,7 +19,7 @@ def delete_index_date
 end
 
 def request_uri
-  index_name = "logstash-#{delete_index_date}"
+  index_name = "#{config[:prefix]}-#{delete_index_date}"
   URI.parse("http://#{config[:host]}:9200/#{index_name}")
 end
 
